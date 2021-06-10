@@ -12,6 +12,7 @@
 		282583DD2670FCCA001A988C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 282583DC2670FCCA001A988C /* Assets.xcassets */; };
 		282583E02670FCCA001A988C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 282583DF2670FCCA001A988C /* Preview Assets.xcassets */; };
 		282583E72670FD05001A988C /* AnysncAwait.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282583E62670FD05001A988C /* AnysncAwait.swift */; };
+		282583E926719A16001A988C /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282583E826719A16001A988C /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,6 +22,7 @@
 		282583DC2670FCCA001A988C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		282583DF2670FCCA001A988C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		282583E62670FD05001A988C /* AnysncAwait.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnysncAwait.swift; sourceTree = "<group>"; };
+		282583E826719A16001A988C /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +57,7 @@
 			children = (
 				282583D82670FCC7001A988C /* SwiftUI3_0App.swift */,
 				282583DA2670FCC7001A988C /* ContentView.swift */,
+				282583E826719A16001A988C /* SearchView.swift */,
 				282583E62670FD05001A988C /* AnysncAwait.swift */,
 				282583DC2670FCCA001A988C /* Assets.xcassets */,
 				282583DE2670FCCA001A988C /* Preview Content */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				282583E926719A16001A988C /* SearchView.swift in Sources */,
 				282583DB2670FCC7001A988C /* ContentView.swift in Sources */,
 				282583E72670FD05001A988C /* AnysncAwait.swift in Sources */,
 				282583D92670FCC7001A988C /* SwiftUI3_0App.swift in Sources */,
