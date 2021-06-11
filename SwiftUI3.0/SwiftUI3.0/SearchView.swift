@@ -8,33 +8,18 @@
 import SwiftUI
 
 struct SearchView: View {
-    let urlString = URL(string: "https://api.github.com/search/repositories?q=swift")
-    @State var items = [RepositoryEntity]()
+    //    let urlString = URL(string: "https://api.github.com/search/repositories?q=swift")
+    @State var a:[User] = []
+    @State var b:[String] = ["a", "b", "c"]
     var body: some View {
-        Button(action: {
-            guard let url = urlString else {
-                return
+        VStack{
+            Button(action: {
+                
+                searchGitHubUser(query: "swift")
+                
+            }) {
+                Text("Button")
             }
-            let request = URLRequest(url: url)
-            print(request)
-            
-            URLSession.shared.dataTask(with: request) { data, respose, error in
-                if let data = data {
-                    let decoder = JSONDecoder()
-                    guard let decodedResponse = try? decoder.decode(RepositoryResponse.self, from: data) else {
-                        print("error")
-                        return
-                    }
-                    DispatchQueue.main.async {
-                        items = decodedResponse.items
-                        print(items)
-                    }
-                } else {
-                    print("error2")
-                }
-            }.resume()
-        }) {
-            Text("Button")
         }
     }
 }
@@ -46,18 +31,50 @@ struct SearchView_Previews: PreviewProvider {
 }
 
 
-
-
-struct RepositoryResponse: Codable, Hashable {
-    var items: [RepositoryEntity]
+func searchGitHubUser(query: String) {
+    //    request作成
+    guard let url = URL(string: "https://api.github.com/search/users?q=" + query) else {
+        return print("error")
+    }
+    let request = URLRequest(url: url)
+    
+    do {
+    let apiUrl = url
+    let data = try Data(contentsOf: apiUrl)
+    let json = try JSONSerialization.jsonObject(with: data) as! [String: Any]
+        print(json)
+    } catch {
+        print("error")
+    }
+        
+        //    decoder
+    let decoder: JSONDecoder = JSONDecoder()
+    //    セッションを作る
+    let task = URLSession.shared.dataTask(with: request) {(data, response, error) in
+        //ここにデータ受信後の処理を書く
+        guard let data = data else { return }
+        do {
+            let user: User = try decoder.decode(User.self, from: data)
+//            print(user)
+        } catch let e {
+            print("JSON Decode Error :\(e)")
+        }
+        
+    }
+    task.resume()
+    
 }
 
-struct RepositoryEntity: Codable, Hashable {
-    var stargazersCount: Int?
-    var fullName: String?
-    var owner: Owner?
+
+
+
+struct User: Codable {
     
-    struct Owner: Codable, Hashable {
-        var avatarUrl: URL?
+    let items: [Item]
+    
+    struct Item: Codable {
+        let login: String
+        let avatar_url: URL
+        
     }
 }
