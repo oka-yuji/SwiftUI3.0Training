@@ -10,8 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @State var numText = ""
     var body: some View {
-        SearchView()
-//        AnysncAwait()
+//        GithubAsyncAwait()
+        AsyncAwait()
     }
 }
 
