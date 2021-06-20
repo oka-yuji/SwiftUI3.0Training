@@ -8,44 +8,39 @@
 import SwiftUI
 
 struct AsyncAwait: View {
+    
+    @ObservedObject var fetchUser = FetchUser()
     let url = URL(string: "https://jsonplaceholder.typicode.com/users")
-    @State var items: [Item] = []
     @State var searchText = ""
     @State var asyncText = ""
     var body: some View {
         NavigationView {
-            List{
-            Text(asyncText)
-            }
-//            List {
-//                ForEach(items) { item in
-//                    VStack(alignment: .leading) {
-//                        Text(item.username)
-//                        Text(item.name)
-//                            .font(.caption)
-//                        //                    AsyncImage(url: user.avatarUrl)
-//                    }
-//                    .listRowSeparatorTint(.red)
-//                }
-//
-//            }
-//            .refreshable (action: {
-//                await fetchUsers()
-//            })
-//            .searchable("検索したい名前を入力して下さい", text: $searchText, suggestions: {
-//                ForEach(items.filter{ user in
-//                    searchText == "" ? true : user.name.lowercased().contains(searchText.lowercased())
-//                }) { user in
-//                    Text(user.name)
-//                }
-//            })
+            VStack {
+                List(fetchUser.searchedRepository, id: \.language) { item in
+                    Text(item.fullName ?? "")
+                }
+                .refreshable (action: {
+                    fetchUser.searchedRepository.removeAll()
+                    await fetchUser.fetchUsers()
+                    print("await\(fetchUser.searchedRepository.count)")
+                })
+                .searchable("input name", text: $fetchUser.query)
+    //            .searchable("検索したい名前を入力して下さい", text: $searchText, suggestions: {
+    //                ForEach(items.filter{ user in
+    //                    searchText == "" ? true : user.name.lowercased().contains(searchText.lowercased())
+    //                }) { user in
+    //                    Text(user.name)
+    //                }
+    //            })
             .navigationTitle("Refreshable")
-            .refreshable {
-                
-                asyncText = await task1()
             }
+            
+//            .refreshable {
+//
+//                await fetchUsers()
+//            }
         }
-//    }
+    }
 //    func fetchUsers()async {
 //        guard let getURL = url else {
 //            return print("urlError")
@@ -59,7 +54,7 @@ struct AsyncAwait: View {
 //        catch {
 //            print("error")
 //        }
-    }
+//    }
 }
 
 struct AsyncAwait_Previews: PreviewProvider {
@@ -68,14 +63,14 @@ struct AsyncAwait_Previews: PreviewProvider {
     }
 }
 
-struct Item: Identifiable, Codable {
-    var id: Int
-    var name: String
-    var username: String
-}
+//struct Item: Identifiable, Codable {
+//    var id: Int
+//    var name: String
+//    var username: String
+//}
 
 
-func task1()async -> String {
-    let text = "async success"
-    return text
-}
+//func task1()async -> String {
+//    let text = "async success"
+//    return text
+//}
